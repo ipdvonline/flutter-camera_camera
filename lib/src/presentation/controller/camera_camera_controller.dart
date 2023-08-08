@@ -128,18 +128,17 @@ class CameraCameraController {
     }
   }
 
-  void zoomChange([double? zoomParam]) async {
+  void zoomChange([bool? update = false]) async {
     if (status.camera.zoom != null &&
         status.camera.minZoom != null &&
         status.camera.maxZoom != null) {
       var zoom = status.camera.zoom!;
-      if (zoom + 0.5 <= status.camera.maxZoom! && zoomParam == null) {
+      if (zoom + 0.5 <= status.camera.maxZoom! && !update) {
         zoom += 0.5;
-      } else if (zoomParam == null) {
+      } else if (!update) {
         zoom = 1.0;
-      } else {
-        zoom = zoomParam;
       }
+      print('***ZOOM => $zoom');
       final camera = status.camera.copyWith(zoom: zoom);
       status = CameraCameraSuccess(camera: camera);
       await _controller.setZoomLevel(zoom);
@@ -183,7 +182,7 @@ class CameraCameraController {
       if (_controller.value.isInitialized &&
           !_controller.value.isTakingPicture) {
         Future.delayed(Duration(milliseconds: 800), () {
-          if (!_result) this.zoomChange(status.camera.zoom);
+          if (!_result) this.zoomChange(true);
         });
         final file = await _controller.takePicture();
         _result = true;
