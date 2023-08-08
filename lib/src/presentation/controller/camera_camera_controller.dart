@@ -183,7 +183,7 @@ class CameraCameraController {
       if (_controller.value.isInitialized &&
           !_controller.value.isTakingPicture) {
         Future.delayed(Duration(milliseconds: 800), () {
-          if (!_result) this.zoomChange(1.0);
+          if (!_result) this.zoomChange(status.camera.zoom);
         });
         final file = await _controller.takePicture();
         _result = true;
