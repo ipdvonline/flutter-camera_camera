@@ -128,7 +128,7 @@ class CameraCameraController {
     }
   }
 
-  void zoomChange([bool? update = false]) async {
+  void zoomChange([bool update = false]) async {
     if (status.camera.zoom != null &&
         status.camera.minZoom != null &&
         status.camera.maxZoom != null) {
