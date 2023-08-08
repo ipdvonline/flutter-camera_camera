@@ -86,7 +86,7 @@ class _CameraCameraPreviewState extends State<CameraCameraPreview> {
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: Padding(
-                          padding: const EdgeInsets.only(bottom: 32, left: 64),
+                          padding: const EdgeInsets.only(bottom: 42, left: 64),
                           child: CircleAvatar(
                             radius: 20,
                             backgroundColor: Colors.black.withOpacity(0.6),
@@ -105,7 +105,7 @@ class _CameraCameraPreviewState extends State<CameraCameraPreview> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Padding(
-                        padding: const EdgeInsets.only(bottom: 32),
+                        padding: const EdgeInsets.only(bottom: 42),
                         child: InkWell(
                           onTap: () {
                             widget.controller.takePhoto();
