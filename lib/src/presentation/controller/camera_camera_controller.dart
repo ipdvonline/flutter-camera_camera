@@ -128,7 +128,7 @@ class CameraCameraController {
     }
   }
 
-  void zoomChange([bool update = false]) async {
+  void zoomChange({bool update = false}) async {
     if (status.camera.zoom != null &&
         status.camera.minZoom != null &&
         status.camera.maxZoom != null) {
@@ -182,7 +182,7 @@ class CameraCameraController {
       if (_controller.value.isInitialized &&
           !_controller.value.isTakingPicture) {
         Future.delayed(Duration(milliseconds: 800), () {
-          if (!_result) this.zoomChange(true);
+          if (!_result) this.zoomChange(update: true);
         });
         final file = await _controller.takePicture();
         _result = true;
