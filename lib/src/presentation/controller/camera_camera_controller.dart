@@ -177,13 +177,29 @@ class CameraCameraController {
 
   void takePhoto() async {
     bool _result = false;
+    int _timerCount = 0;
 
     try {
       if (_controller.value.isInitialized &&
           !_controller.value.isTakingPicture) {
-        Future.delayed(Duration(milliseconds: 800), () {
-          if (!_result) this.zoomChange(update: true);
+        Timer.periodic(Duration(milliseconds: 500), (Timer t) {
+          print('Timer => $_result');
+          _timerCount++;
+
+          if (_timerCount >= 6) {
+            t.cancel();
+            return;
+          }
+
+          if (!_result) {
+            print('Timer zoom update => $_result');
+            this.zoomChange(update: true);
+            return;
+          }
+
+          t.cancel();
         });
+
         final file = await _controller.takePicture();
         _result = true;
 
