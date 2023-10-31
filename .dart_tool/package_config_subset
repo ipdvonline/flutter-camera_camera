@@ -1,3 +1,7 @@
+camera_android
+2.19
+file:///Users/leticiaalmeida/.pub-cache/git/flutter-camera_android-779f12ae3514e4391f7ea0a5fd8ca15da541b2e8/
+file:///Users/leticiaalmeida/.pub-cache/git/flutter-camera_android-779f12ae3514e4391f7ea0a5fd8ca15da541b2e8/lib/
 _fe_analyzer_shared
 2.17
 file:///Users/leticiaalmeida/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-61.0.0/
@@ -22,10 +26,6 @@ camera
 2.19
 file:///Users/leticiaalmeida/.pub-cache/hosted/pub.dev/camera-0.10.5+5/
 file:///Users/leticiaalmeida/.pub-cache/hosted/pub.dev/camera-0.10.5+5/lib/
-camera_android
-2.19
-file:///Users/leticiaalmeida/.pub-cache/hosted/pub.dev/camera_android-0.10.8+12/
-file:///Users/leticiaalmeida/.pub-cache/hosted/pub.dev/camera_android-0.10.8+12/lib/
 camera_avfoundation
 2.19
 file:///Users/leticiaalmeida/.pub-cache/hosted/pub.dev/camera_avfoundation-0.9.13+6/
@@ -252,8 +252,8 @@ file:///Users/leticiaalmeida/.pub-cache/hosted/pub.dev/yaml-3.1.2/
 file:///Users/leticiaalmeida/.pub-cache/hosted/pub.dev/yaml-3.1.2/lib/
 camera_camera
 2.17
-file:///Users/leticiaalmeida/Documents/www/ipdv_360/flutter-camera_camera/
-file:///Users/leticiaalmeida/Documents/www/ipdv_360/flutter-camera_camera/lib/
+file:///Users/leticiaalmeida/Documents/www/flutter-camera_camera/
+file:///Users/leticiaalmeida/Documents/www/flutter-camera_camera/lib/
 sky_engine
 3.0
 file:///Users/leticiaalmeida/fvm/versions/3.13.5/bin/cache/pkg/sky_engine/

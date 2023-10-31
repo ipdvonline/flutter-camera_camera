@@ -50,13 +50,14 @@ packages:
     source: hosted
     version: "0.10.5+5"
   camera_android:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: camera_android
-      sha256: c978373b41a463c9edda3fea0a06966299f55db63232cd0f0d4efc21a59a0006
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.10.8+12"
+      path: "."
+      ref: HEAD
+      resolved-ref: "779f12ae3514e4391f7ea0a5fd8ca15da541b2e8"
+      url: "https://github.com/ipdvonline/flutter-camera_android.git"
+    source: git
+    version: "0.10.8+13"
   camera_avfoundation:
     dependency: transitive
     description:

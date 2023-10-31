@@ -39,7 +39,7 @@
     },
     {
       "name": "camera_android",
-      "rootUri": "file:///Users/leticiaalmeida/.pub-cache/hosted/pub.dev/camera_android-0.10.8+12",
+      "rootUri": "file:///Users/leticiaalmeida/.pub-cache/git/flutter-camera_android-779f12ae3514e4391f7ea0a5fd8ca15da541b2e8/",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
@@ -410,7 +410,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-10-02T18:51:16.059439Z",
+  "generated": "2023-10-31T20:12:05.614090Z",
   "generator": "pub",
   "generatorVersion": "3.1.2"
 }

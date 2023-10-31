@@ -35,7 +35,7 @@
       "name": "camera_camera",
       "rootUri": "../../",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.17"
     },
     {
       "name": "camera_platform_interface",
@@ -224,7 +224,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2023-10-02T18:47:19.900630Z",
+  "generated": "2023-10-31T20:02:46.974081Z",
   "generator": "pub",
   "generatorVersion": "3.1.2"
 }

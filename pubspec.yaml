@@ -21,6 +21,11 @@ dev_dependencies:
     sdk: flutter
   mocktail: ^0.3.0
 
+dependency_overrides:
+  camera_android: # Alternativa temporária para o problema de delay da Camera
+    git:
+      url: https://github.com/ipdvonline/flutter-camera_android.git
+
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
 
