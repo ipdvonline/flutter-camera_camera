@@ -145,16 +145,14 @@ class _CameraCameraPreviewState extends State<CameraCameraPreview> {
             );
           },
           failure: (message, _) {
-            print('****FAILURE 2=> $message');
             return Container(
               color: Colors.black,
               child: Text(message),
             );
           },
           orElse: () {
-            print('****orElse2=>');
             return Container(
-              color: Colors.blue,
+              color: Colors.black,
             );
           },
         );
