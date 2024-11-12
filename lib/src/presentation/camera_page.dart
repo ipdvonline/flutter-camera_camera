@@ -96,41 +96,50 @@ class _CameraCameraState extends State<CameraCamera> {
       child: SafeArea(
         child: AnimatedBuilder(
           animation: controller,
-          builder: (_, __) => controller.status.when(
-              preview: (controller) => Stack(
-                    children: [
-                      CameraCameraPreview(
-                        enableZoom: widget.enableZoom,
-                        key: UniqueKey(),
-                        controller: controller,
-                      ),
-                      if (this.controller.status.preview.cameras.length > 1)
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.only(bottom: 32, right: 64),
-                            child: InkWell(
-                              onTap: () {
-                                this.controller.changeCamera();
-                              },
-                              child: CircleAvatar(
-                                radius: 20,
-                                backgroundColor: Colors.black.withOpacity(0.6),
-                                child: getIconByPlatform(),
-                              ),
+          builder: (_, __) {
+            return controller.status.when(
+              preview: (controller) {
+                return Stack(
+                  children: [
+                    CameraCameraPreview(
+                      enableZoom: widget.enableZoom,
+                      key: UniqueKey(),
+                      controller: controller,
+                      controllerNotifier: this.controller,
+                    ),
+                    if (this.controller.status.preview.cameras.length > 1)
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 32, right: 64),
+                          child: InkWell(
+                            onTap: () {
+                              this.controller.changeCamera();
+                            },
+                            child: CircleAvatar(
+                              radius: 20,
+                              backgroundColor: Colors.black.withOpacity(0.6),
+                              child: getIconByPlatform(),
                             ),
                           ),
-                        )
-                    ],
-                  ),
-              failure: (message, _) => Container(
-                    color: Colors.black,
-                    child: Text(message),
-                  ),
-              orElse: () => Container(
-                    color: Colors.black,
-                  )),
+                        ),
+                      )
+                  ],
+                );
+              },
+              failure: (message, _) {
+                return Container(
+                  color: Colors.black,
+                  child: Text(message),
+                );
+              },
+              orElse: () {
+                return Container(
+                  color: Colors.black,
+                );
+              },
+            );
+          },
         ),
       ),
     );

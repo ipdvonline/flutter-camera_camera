@@ -35,7 +35,7 @@ class CameraCameraController {
       cameraDescription,
       resolutionPreset,
       enableAudio: enableAudio,
-      imageFormatGroup: ImageFormatGroup.yuv420,
+      //imageFormatGroup: ImageFormatGroup.yuv420,
     );
   }
 

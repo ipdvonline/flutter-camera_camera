@@ -1,3 +1,4 @@
+import 'package:camera_camera/src/core/camera_notifier.dart';
 import 'package:camera_camera/src/presentation/controller/camera_camera_controller.dart';
 import 'package:camera_camera/src/presentation/controller/camera_camera_status.dart';
 import 'package:camera_camera/src/shared/entities/camera_mode.dart';
@@ -8,11 +9,14 @@ class CameraCameraPreview extends StatefulWidget {
   final void Function(String value)? onFile;
   final CameraCameraController controller;
   final bool enableZoom;
+  final CameraNotifier controllerNotifier;
+
   CameraCameraPreview({
     Key? key,
     this.onFile,
     required this.controller,
     required this.enableZoom,
+    required this.controllerNotifier,
   }) : super(key: key);
 
   @override
@@ -35,98 +39,126 @@ class _CameraCameraPreviewState extends State<CameraCameraPreview> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    bool isRenderSuccess = false;
 
     return ValueListenableBuilder<CameraCameraStatus>(
       valueListenable: widget.controller.statusNotifier,
-      builder: (_, status, __) => status.when(
-          success: (camera) => GestureDetector(
-                onScaleUpdate: (details) {
-                  widget.controller.setZoomLevel(details.scale);
-                },
-                child: Stack(
-                  children: [
-                    if (widget.controller.cameraMode ==
-                        CameraMode.ratioFull) ...[
-                      OverflowBox(
-                          maxHeight: size.height,
-                          maxWidth:
-                              size.width * (widget.controller.aspectRatio),
-                          child: widget.controller.buildPreview()),
-                    ] else ...[
-                      Center(
-                        child: AspectRatio(
-                          aspectRatio: widget.controller.cameraMode.value,
-                          child: widget.controller.buildPreview(),
+      builder: (_, status, __) {
+        return status.when(
+          loading: () {
+            print('LOADING');
+
+            Future.delayed(Duration(seconds: 3)).then((value) {
+              if (!isRenderSuccess) {
+                print('****REBUILD');
+                widget.controllerNotifier.changeCamera();
+                //widget.controller.zoomChange(update: true);
+              }
+            });
+            return Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
+            );
+          },
+          success: (camera) {
+            print('****SUCCESS2');
+            isRenderSuccess = true;
+            return GestureDetector(
+              onScaleUpdate: (details) {
+                widget.controller.setZoomLevel(details.scale);
+              },
+              child: Stack(
+                children: [
+                  if (widget.controller.cameraMode == CameraMode.ratioFull) ...[
+                    OverflowBox(
+                        maxHeight: size.height,
+                        maxWidth: size.width * (widget.controller.aspectRatio),
+                        child: widget.controller.buildPreview()),
+                  ] else ...[
+                    Center(
+                      child: AspectRatio(
+                        aspectRatio: widget.controller.cameraMode.value,
+                        child: widget.controller.buildPreview(),
+                      ),
+                    ),
+                  ],
+                  if (camera.zoom != null && widget.enableZoom)
+                    Positioned(
+                      bottom: 116,
+                      left: 0.0,
+                      right: 0.0,
+                      child: CircleAvatar(
+                        radius: 20,
+                        backgroundColor: Colors.black.withOpacity(0.6),
+                        child: IconButton(
+                          icon: Center(
+                            child: Text(
+                              "${camera.zoom?.toStringAsFixed(1)}x",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 12),
+                            ),
+                          ),
+                          onPressed: () {
+                            widget.controller.zoomChange();
+                          },
                         ),
                       ),
-                    ],
-                    if (camera.zoom != null && widget.enableZoom)
-                      Positioned(
-                        bottom: 116,
-                        left: 0.0,
-                        right: 0.0,
+                    ),
+                  if (widget.controller.flashModes.length > 1)
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 32, left: 64),
                         child: CircleAvatar(
                           radius: 20,
                           backgroundColor: Colors.black.withOpacity(0.6),
                           child: IconButton(
-                            icon: Center(
-                              child: Text(
-                                "${camera.zoom?.toStringAsFixed(1)}x",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 12),
-                              ),
-                            ),
                             onPressed: () {
-                              widget.controller.zoomChange();
+                              widget.controller.changeFlashMode();
                             },
-                          ),
-                        ),
-                      ),
-                    if (widget.controller.flashModes.length > 1)
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 32, left: 64),
-                          child: CircleAvatar(
-                            radius: 20,
-                            backgroundColor: Colors.black.withOpacity(0.6),
-                            child: IconButton(
-                              onPressed: () {
-                                widget.controller.changeFlashMode();
-                              },
-                              icon: Icon(
-                                camera.flashModeIcon,
-                                color: Colors.white,
-                              ),
+                            icon: Icon(
+                              camera.flashModeIcon,
+                              color: Colors.white,
                             ),
-                          ),
-                        ),
-                      ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 32),
-                        child: InkWell(
-                          onTap: () {
-                            widget.controller.takePhoto();
-                          },
-                          child: CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Colors.white,
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 32),
+                      child: InkWell(
+                        onTap: () {
+                          widget.controller.takePhoto();
+                        },
+                        child: CircleAvatar(
+                          radius: 30,
+                          backgroundColor: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-          failure: (message, _) => Container(
-                color: Colors.black,
-                child: Text(message),
-              ),
-          orElse: () => Container(
-                color: Colors.black,
-              )),
+            );
+          },
+          failure: (message, _) {
+            print('****FAILURE 2=> $message');
+            return Container(
+              color: Colors.black,
+              child: Text(message),
+            );
+          },
+          orElse: () {
+            print('****orElse2=>');
+            return Container(
+              color: Colors.blue,
+            );
+          },
+        );
+      },
     );
   }
 
