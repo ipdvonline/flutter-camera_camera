@@ -31,8 +31,12 @@ class CameraCameraController {
     this.cameraMode = CameraMode.ratio16s9,
     this.enableAudio = false,
   }) {
-    _controller = CameraController(cameraDescription, resolutionPreset,
-        enableAudio: enableAudio);
+    _controller = CameraController(
+      cameraDescription,
+      resolutionPreset,
+      enableAudio: enableAudio,
+      imageFormatGroup: ImageFormatGroup.yuv420,
+    );
   }
 
   double get aspectRatio => _controller.value.aspectRatio;
