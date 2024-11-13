@@ -51,7 +51,7 @@ class _CameraCameraPreviewState extends State<CameraCameraPreview> {
             Future.delayed(Duration(seconds: 3)).then((value) {
               if (!isRenderSuccess) {
                 print('****REBUILD');
-                widget.controllerNotifier.changeCamera();
+                widget.controllerNotifier.changeCamera(0);
                 //widget.controller.zoomChange(update: true);
               }
             });
