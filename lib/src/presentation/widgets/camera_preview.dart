@@ -48,7 +48,7 @@ class _CameraCameraPreviewState extends State<CameraCameraPreview> {
           loading: () {
             print('LOADING');
 
-            Future.delayed(Duration(seconds: 2)).then((value) {
+            Future.delayed(Duration(milliseconds: 1500)).then((value) {
               if (!isRenderSuccess) {
                 print('****REBUILD');
                 widget.controllerNotifier.changeCamera();
